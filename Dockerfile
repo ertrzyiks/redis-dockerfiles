@@ -1,8 +1,10 @@
-FROM ubuntu:12.04
+FROM ubuntu:14.04
 MAINTAINER luxifer "luxifer666@gmail.com"
 
 RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive \
-	apt-get update && \
+    apt-get install software-properties-common -y && \
+	add-apt-repository ppa:chris-lea/redis-server && \
+	apt-get update --fix-missing && \
 	apt-get install -y redis-server && \
 	sed -i 's@bind 127.0.0.1@bind 0.0.0.0@' /etc/redis/redis.conf && \
 	sed -i 's@daemonize yes@daemonize no@' /etc/redis/redis.conf && \
